@@ -34,6 +34,32 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = "PAPER";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+
+    let pScore = 0;
+    let cScore = 0;
+
+    for (let i=0; i<5; i++) {
+        let pS = prompt("Chose your weapon! Rock, Paper or Scissors");
+        let cS = getComputerChoice();
+        let round = playRound(pS, cS);
+        let winner = round.slice(4, 5);
+
+        if (winner === "W") {
+            pScore ++;
+        } else if (winner === "L") {
+            cScore ++;
+        }
+        console.log(round);
+    }
+
+    if (pScore === cScore) {
+        console.log("Game over! its a Draw!");
+    } else if (pScore > cScore) {  
+        console.log("Game over! You win!");
+    } else {
+        console.log("Game over! You lose!");
+    }
+}
+
+game();
