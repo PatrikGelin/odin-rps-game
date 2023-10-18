@@ -7,6 +7,37 @@ function getComputerChoice() {
     return choices[random];
 }
 
+const message = document.querySelector('#message');
+
+function playRound(playerSelection, computerSelection) {
+    // shorten the variable names
+    let pS = playerSelection;
+    let cS = computerSelection;
+
+    // logic to figure out who won
+    if ( pS === cS) {
+        message.textContent = "Draw!";
+    } else if (pS === "rock") {
+        if (cS === "scissors") {
+            message.textContent = "You Win! Rock beats Scissors";
+        } else if (cS === "paper") {
+            message.textContent = "You Lose! Paper Beats Rock";
+        }
+    } else if (pS === "paper") {
+        if (cS === "rock") {
+            message.textContent = "You Win! Paper beats Rock";
+        } else if (cS === "scissors") {
+            message.textContent = "You Lose! Scissors Beats Paper";
+        }
+    } else if (pS === "scissors") {
+        if (cS === "paper") {
+            message.textContent = "You Win! Scissors beats Paper";
+        } else if (cS === "rock") {
+            message.textContent = "You Lose! Rock Beats Scissors";
+        }
+    }
+}
+
 const rock = document.querySelector('#rock');
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
@@ -24,48 +55,13 @@ scissors.addEventListener('click', () => {
 });
 
 
-function playRound(playerSelection, computerSelection) {
-    // shorten the variable names and make sure that player input is lowercase
-    let pS = playerSelection;
-    let cS = computerSelection;
-
-    // logic to figure out who won
-    if ( pS === cS) {
-        return "Draw!"
-    } else if (pS === "rock") {
-        if (cS === "scissors") {
-            return "You Win! Rock beats Scissors";
-        } else if (cS === "paper") {
-            return "You Lose! Paper Beats Rock";
-        }
-    } else if (pS === "paper") {
-        if (cS === "rock") {
-            return "You Win! Paper beats Rock";
-        } else if (cS === "scissors") {
-            return "You Lose! Scissors Beats Paper";
-        }
-    } else if (pS === "scissors") {
-        if (cS === "paper") {
-            return "You Win! Scissors beats Paper";
-        } else if (cS === "rock") {
-            return "You Lose! Rock Beats Scissors";
-        }
-    }
-}
-
-
-
-
 function game() {
     // variables to keep track of the score during a 5 game match
     let pScore = 0;
     let cScore = 0;
 
     // for loop that will run 5 games
-    for (let i=0; i<5; i++) {
-        // prompt the player for input
-        let pS = prompt("Chose your weapon! Rock, Paper or Scissors");
-        // get computers choice 
+    while (pScore < 5 && cScore < 5) {
         let cS = getComputerChoice();
         // play the round 
         let round = playRound(pS, cS);
@@ -82,11 +78,10 @@ function game() {
         console.log(round);
     }
     // after the 5 rounds check scoring and log the winner
-    if (pScore === cScore) {
-        console.log("Game over! its a Draw!");
-    } else if (pScore > cScore) {  
+    
+    if (pScore === 5) {  
         console.log("Game over! You win!");
-    } else {
+    } else if (cScore === 5) {
         console.log("Game over! You lose!");
     }
 }
