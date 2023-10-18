@@ -7,9 +7,19 @@ function getComputerChoice() {
     return choices[random];
 }
 
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+rock.addEventListener('click', () => {
+    let r = playRound('rock', getComputerChoice());
+    console.log(r);
+});
+
+
 function playRound(playerSelection, computerSelection) {
     // shorten the variable names and make sure that player input is lowercase
-    let pS = playerSelection.toLowerCase();
+    let pS = playerSelection;
     let cS = computerSelection;
 
     // logic to figure out who won
@@ -35,6 +45,9 @@ function playRound(playerSelection, computerSelection) {
         }
     }
 }
+
+
+
 
 function game() {
     // variables to keep track of the score during a 5 game match
@@ -71,4 +84,4 @@ function game() {
     }
 }
 // run a new game on page refresh
-game();
+// game();
