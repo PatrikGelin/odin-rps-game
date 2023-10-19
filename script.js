@@ -8,6 +8,8 @@ function getComputerChoice() {
 }
 
 const message = document.querySelector('#message');
+const score = document.querySelector('#score');
+
 
 function playRound(playerSelection, computerSelection) {
     // shorten the variable names
@@ -45,8 +47,7 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-
-    // variables to keep track of the score
+// variables to keep track of the score
 let pScore = 0;
 let cScore = 0;
 
@@ -60,7 +61,6 @@ buttons.forEach((button) => {
 
         let cS = getComputerChoice();
         let round = playRound(button.id, cS);
-        console.log(round);
             
         if (round === "W") {
             pScore ++;
@@ -68,11 +68,12 @@ buttons.forEach((button) => {
             cScore ++;
         }
         
+        score.textContent = `Player ${pScore} Computer ${cScore}`
+
         if (pScore === 5) {  
-            console.log("Game over! You win!");
+            score.textContent = "Game over! You win!";
         } else if (cScore === 5) {
-            console.log("Game over! You lose!");
+            score.textContent = "Game over! You lose!";
         }
-        console.log(pScore);
     });
 });
