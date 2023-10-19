@@ -17,73 +17,62 @@ function playRound(playerSelection, computerSelection) {
     // logic to figure out who won
     if ( pS === cS) {
         message.textContent = "Draw!";
+        return 0;
     } else if (pS === "rock") {
         if (cS === "scissors") {
             message.textContent = "You Win! Rock beats Scissors";
+            return "W";
         } else if (cS === "paper") {
             message.textContent = "You Lose! Paper Beats Rock";
+            return "L";
         }
     } else if (pS === "paper") {
         if (cS === "rock") {
             message.textContent = "You Win! Paper beats Rock";
+            return "W";
         } else if (cS === "scissors") {
             message.textContent = "You Lose! Scissors Beats Paper";
+            return "L";
         }
     } else if (pS === "scissors") {
         if (cS === "paper") {
             message.textContent = "You Win! Scissors beats Paper";
+            return "W";
         } else if (cS === "rock") {
             message.textContent = "You Lose! Rock Beats Scissors";
+            return "L";
         }
     }
 }
 
-const rock = document.querySelector('#rock');
-const paper = document.querySelector('#paper');
-const scissors = document.querySelector('#scissors');
 
-rock.addEventListener('click', () => {
-    playRound('rock', getComputerChoice());
-});
+    // variables to keep track of the score
+let pScore = 0;
+let cScore = 0;
 
-paper.addEventListener('click', () => {
-    playRound('paper', getComputerChoice());
-});
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (pScore === 5 || cScore === 5 ) {
+            pScore = 0;
+            cScore = 0;
+        } 
 
-scissors.addEventListener('click', () => {
-    playRound('scissors', getComputerChoice());
-});
-
-
-function game() {
-    // variables to keep track of the score during a 5 game match
-    let pScore = 0;
-    let cScore = 0;
-
-    // for loop that will run 5 games
-    while (pScore < 5 && cScore < 5) {
         let cS = getComputerChoice();
-        // play the round 
-        let round = playRound(pS, cS);
-        // check the 5th letter in the return value
-        let winner = round.slice(4, 5);
-        // if the 5th letter is a W then its a win for the player, add 1 to player score
-        if (winner === "W") {
-            pScore ++;
-        // if its a L then add 1 to computer score 
-        } else if (winner === "L") {
-            cScore ++;
-        } // else dont add score bc its a tie
-
+        let round = playRound(button.id, cS);
         console.log(round);
-    }
-    // after the 5 rounds check scoring and log the winner
-    
-    if (pScore === 5) {  
-        console.log("Game over! You win!");
-    } else if (cScore === 5) {
-        console.log("Game over! You lose!");
-    }
-}
-// run a new game on page refresh
-// game();
+            
+        if (round === "W") {
+            pScore ++;
+        } else if (round === "L") {
+            cScore ++;
+        }
+        
+        if (pScore === 5) {  
+            console.log("Game over! You win!");
+        } else if (cScore === 5) {
+            console.log("Game over! You lose!");
+        }
+        console.log(pScore);
+    });
+});
